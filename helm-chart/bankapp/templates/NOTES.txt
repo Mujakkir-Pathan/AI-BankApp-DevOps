@@ -1,0 +1,19 @@
+AI-BankApp has been deployed successfully!
+
+Service:
+{{ include "bankapp.fullname" . }}-service
+
+Service Type:
+{{ .Values.bankapp.service.type }}
+
+Service Port:
+{{ .Values.bankapp.service.port }}
+
+To access the application locally, run:
+
+kubectl port-forward service/{{ include "bankapp.fullname" . }}-service 8080:{{ .Values.bankapp.service.port }}
+
+Then open:
+
+http://127.0.0.1:8080
+
