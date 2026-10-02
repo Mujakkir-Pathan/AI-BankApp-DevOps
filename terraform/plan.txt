@@ -1,0 +1,399 @@
+[0m[1mdata.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.kms.data.aws_partition.current[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_partition.current: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_caller_identity.current: Reading...[0m[0m
+[0m[1mmodule.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-098f070475a335f56][0m
+[0m[1mmodule.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2830595799][0m
+[0m[1mmodule.eks.data.aws_caller_identity.current[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_region.current: Reading...[0m[0m
+[0m[1mmodule.eks.aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/bankapp-eks/cluster][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296][0m
+[0m[1mmodule.eks.data.aws_partition.current[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.kms.data.aws_partition.current[0]: Read complete after 0s [id=aws][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_partition.current: Read complete after 0s [id=aws][0m
+[0m[1mmodule.eks.data.aws_partition.current[0]: Read complete after 0s [id=aws][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_region.current: Read complete after 0s [id=us-west-2][0m
+[0m[1mmodule.eks.module.kms.data.aws_caller_identity.current[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.ebs_csi[0]: Reading...[0m[0m
+[0m[1mmodule.eks.aws_iam_role.this[0]: Refreshing state... [id=bankapp-eks-cluster-084d71778cc91cb94c672c621f][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].aws_iam_role.this[0]: Refreshing state... [id=bankapp-ng-eks-node-group-abcaf7cf19d3842780e6edf07c][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.ebs_csi[0]: Read complete after 0s [id=4189668531][0m
+[0m[1mmodule.ebs_csi_irsa.aws_iam_policy.ebs_csi[0]: Refreshing state... [id=arn:aws:iam::874841217451:policy/AmazonEKS_EBS_CSI_Policy-0af948603d92c8191e24015b74][0m
+[0m[1mmodule.eks.data.aws_caller_identity.current[0]: Read complete after 0s [id=874841217451][0m
+[0m[1mmodule.eks.data.aws_iam_session_context.current[0]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_iam_session_context.current[0]: Read complete after 0s [id=arn:aws:iam::874841217451:user/stephane][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].aws_iam_role_policy_attachment.this["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=bankapp-ng-eks-node-group-abcaf7cf19d3842780e6edf07c/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].aws_iam_role_policy_attachment.this["AmazonEKS_CNI_Policy"]: Refreshing state... [id=bankapp-ng-eks-node-group-abcaf7cf19d3842780e6edf07c/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].aws_iam_role_policy_attachment.this["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=bankapp-ng-eks-node-group-abcaf7cf19d3842780e6edf07c/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.this["AmazonEKSClusterPolicy"]: Refreshing state... [id=bankapp-eks-cluster-084d71778cc91cb94c672c621f/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_caller_identity.current: Read complete after 0s [id=874841217451][0m
+[0m[1mmodule.eks.module.kms.data.aws_caller_identity.current[0]: Read complete after 1s [id=874841217451][0m
+[0m[1mmodule.eks.module.kms.data.aws_iam_policy_document.this[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.kms.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=107886571][0m
+[0m[1mmodule.eks.module.kms.aws_kms_key.this[0]: Refreshing state... [id=a61e0b50-0701-40fe-814c-028ffb746058][0m
+[0m[1mdata.aws_availability_zones.available: Read complete after 1s [id=us-west-2][0m
+[0m[1mmodule.eks.module.kms.aws_kms_alias.this["cluster"]: Refreshing state... [id=alias/eks/bankapp-eks][0m
+[0m[1mmodule.eks.aws_iam_policy.cluster_encryption[0]: Refreshing state... [id=arn:aws:iam::874841217451:policy/bankapp-eks-cluster-ClusterEncryptiond4a1661e8f319ef68f8db2f47f][0m
+[0m[1mmodule.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Refreshing state... [id=bankapp-eks-cluster-084d71778cc91cb94c672c621f/arn:aws:iam::874841217451:policy/bankapp-eks-cluster-ClusterEncryptiond4a1661e8f319ef68f8db2f47f][0m
+[0m[1mmodule.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-06c6095b27034360f][0m
+[0m[1mmodule.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-0881eb94d4a62c6d2][0m
+[0m[1mmodule.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-081bc8ceed920fc6b][0m
+[0m[1mmodule.eks.aws_security_group.node[0]: Refreshing state... [id=sg-0677d91b17d6028d6][0m
+[0m[1mmodule.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-03484d436e3475278][0m
+[0m[1mmodule.vpc.aws_subnet.private[2]: Refreshing state... [id=subnet-06991f07326cecd01][0m
+[0m[1mmodule.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0ce93e58047636923][0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-0de6912f186d05bb4][0m
+[0m[1mmodule.vpc.aws_route_table.private[1]: Refreshing state... [id=rtb-0c5c0698f721f35eb][0m
+[0m[1mmodule.vpc.aws_route_table.private[2]: Refreshing state... [id=rtb-04133f51bbfde62a4][0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-07a3ff5b99f0821a1][0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-02b83e14346d2229d][0m
+[0m[1mmodule.vpc.aws_subnet.intra[0]: Refreshing state... [id=subnet-02f99eeda5ecbe175][0m
+[0m[1mmodule.vpc.aws_subnet.intra[1]: Refreshing state... [id=subnet-09e7ddfc361514e74][0m
+[0m[1mmodule.vpc.aws_subnet.intra[2]: Refreshing state... [id=subnet-0a6d801500920da04][0m
+[0m[1mmodule.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-0f53dcc9bec31bf28][0m
+[0m[1mmodule.vpc.aws_route_table.intra[0]: Refreshing state... [id=rtb-00a33fc095bb42556][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0cf4659bcab41af74][0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-033d82c0be7d5759e][0m
+[0m[1mmodule.vpc.aws_subnet.public[2]: Refreshing state... [id=subnet-0194c95fe73c649a1][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[2]: Refreshing state... [id=rtbassoc-085e5132f9fb331c9][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0dadbb5ddb24b355f][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-065abd9df2075974f][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-1165347367][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_nodes_ephemeral"]: Refreshing state... [id=sgrule-1651483443][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_6443_webhook"]: Refreshing state... [id=sgrule-183528200][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_9443_webhook"]: Refreshing state... [id=sgrule-2098029794][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-895718269][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_10251_webhook"]: Refreshing state... [id=sgrule-194871256][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_4443_webhook"]: Refreshing state... [id=sgrule-3283225758][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-1070870435][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_cluster_8443_webhook"]: Refreshing state... [id=sgrule-430724905][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-2436640914][0m
+[0m[1mmodule.eks.aws_security_group_rule.node["egress_all"]: Refreshing state... [id=sgrule-3344516105][0m
+[0m[1mmodule.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-3328578131][0m
+[0m[1mmodule.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0ce93e580476369231080289494][0m
+[0m[1mmodule.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-09fa8e19ebd08aafd][0m
+[0m[1mmodule.vpc.aws_eip.nat[1]: Refreshing state... [id=eipalloc-050c6690117c02343][0m
+[0m[1mmodule.vpc.aws_eip.nat[2]: Refreshing state... [id=eipalloc-06033a73f362d7b75][0m
+[0m[1mmodule.vpc.aws_route_table_association.intra[1]: Refreshing state... [id=rtbassoc-0d2fc11a9994b3fac][0m
+[0m[1mmodule.vpc.aws_route_table_association.intra[0]: Refreshing state... [id=rtbassoc-025b996598eeb2e10][0m
+[0m[1mmodule.vpc.aws_route_table_association.intra[2]: Refreshing state... [id=rtbassoc-050acaec2daf88051][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0678606b6d451cc71][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-08307ed841d30b9de][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[2]: Refreshing state... [id=rtbassoc-0f956451f40ecf4de][0m
+[0m[1mmodule.eks.aws_eks_cluster.this[0]: Refreshing state... [id=bankapp-eks][0m
+[0m[1mmodule.vpc.aws_nat_gateway.this[2]: Refreshing state... [id=nat-0738edd2c3132f538][0m
+[0m[1mmodule.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-0b5c25e3b81819c71][0m
+[0m[1mmodule.vpc.aws_nat_gateway.this[1]: Refreshing state... [id=nat-075f2f4b28b7f5433][0m
+[0m[1mmodule.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-0de6912f186d05bb41080289494][0m
+[0m[1mmodule.vpc.aws_route.private_nat_gateway[2]: Refreshing state... [id=r-rtb-04133f51bbfde62a41080289494][0m
+[0m[1mmodule.vpc.aws_route.private_nat_gateway[1]: Refreshing state... [id=r-rtb-0c5c0698f721f35eb1080289494][0m
+[0m[1mmodule.eks.aws_ec2_tag.cluster_primary_security_group["ManagedBy"]: Refreshing state... [id=sg-0607ec20b45492103,ManagedBy][0m
+[0m[1mmodule.eks.aws_ec2_tag.cluster_primary_security_group["Project"]: Refreshing state... [id=sg-0607ec20b45492103,Project][0m
+[0m[1mmodule.eks.time_sleep.this[0]: Refreshing state... [id=2026-10-01T15:44:23Z][0m
+[0m[1mmodule.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Refreshing state... [id=sg-0607ec20b45492103,Environment][0m
+[0m[1mmodule.eks.aws_eks_access_entry.this["cluster_creator"]: Refreshing state... [id=bankapp-eks:arn:aws:iam::874841217451:user/stephane][0m
+[0m[1mmodule.eks.data.tls_certificate.this[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].module.user_data.null_resource.validate_cluster_service_cidr: Refreshing state... [id=3795652728083357301][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].data.aws_ssm_parameter.ami[0]: Reading...[0m[0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].aws_launch_template.this[0]: Refreshing state... [id=lt-0f74bfab8598045b5][0m
+[0m[1mmodule.eks.data.tls_certificate.this[0]: Read complete after 1s [id=f97f646c2cd14cc0db0f757f0fccc96abbbe2af5][0m
+[0m[1mmodule.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Refreshing state... [id=arn:aws:iam::874841217451:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/8CC94CA47CED38B413D4D1DBBA66B699][0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.this[0]: Reading...[0m[0m
+[0m[1mmodule.ebs_csi_irsa.data.aws_iam_policy_document.this[0]: Read complete after 0s [id=2392852161][0m
+[0m[1mmodule.ebs_csi_irsa.aws_iam_role.this[0]: Refreshing state... [id=bankapp-eks-ebs-csi][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].data.aws_ssm_parameter.ami[0]: Read complete after 1s [id=/aws/service/eks/optimized-ami/1.35/amazon-linux-2023/x86_64/standard/recommended/release_version][0m
+[0m[1mmodule.eks.module.eks_managed_node_group["bankapp-ng"].aws_eks_node_group.this[0]: Refreshing state... [id=bankapp-eks:bankapp-ng-d65bfb8fcfb9a5b33e8d998996][0m
+[0m[1mmodule.ebs_csi_irsa.aws_iam_role_policy_attachment.ebs_csi[0]: Refreshing state... [id=bankapp-eks-ebs-csi/arn:aws:iam::874841217451:policy/AmazonEKS_EBS_CSI_Policy-0af948603d92c8191e24015b74][0m
+[0m[1mmodule.eks.aws_eks_access_policy_association.this["cluster_creator_admin"]: Refreshing state... [id=bankapp-eks#arn:aws:iam::874841217451:user/stephane#arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["coredns"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["vpc-cni"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["eks-pod-identity-agent"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["kube-proxy"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["metrics-server"]: Reading...[0m[0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["coredns"]: Read complete after 0s [id=coredns][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["metrics-server"]: Read complete after 0s [id=metrics-server][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["vpc-cni"]: Read complete after 0s [id=vpc-cni][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["eks-pod-identity-agent"]: Read complete after 0s [id=eks-pod-identity-agent][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["aws-ebs-csi-driver"]: Read complete after 0s [id=aws-ebs-csi-driver][0m
+[0m[1mmodule.eks.data.aws_eks_addon_version.this["kube-proxy"]: Read complete after 1s [id=kube-proxy][0m
+[0m[1mmodule.eks.aws_eks_addon.before_compute["eks-pod-identity-agent"]: Refreshing state... [id=bankapp-eks:eks-pod-identity-agent][0m
+[0m[1mmodule.eks.aws_eks_addon.before_compute["vpc-cni"]: Refreshing state... [id=bankapp-eks:vpc-cni][0m
+
+[1m[36mNote:[0m[1m Objects have changed outside of Terraform
+[0m
+Terraform detected the following changes made outside of Terraform since the
+last "terraform apply" which may have affected this plan:
+
+[1m  # module.eks.module.eks_managed_node_group["bankapp-ng"].aws_eks_node_group.this[0][0m has changed
+[0m  [33m~[0m[0m resource "aws_eks_node_group" "this" {
+      [32m+[0m[0m arn                    = "arn:aws:eks:us-west-2:874841217451:nodegroup/bankapp-eks/bankapp-ng-d65bfb8fcfb9a5b33e8d998996/ced07c11-bcfd-7a0c-4ff5-f61c6ce0686b"
+        id                     = "bankapp-eks:bankapp-ng-d65bfb8fcfb9a5b33e8d998996"
+      [32m+[0m[0m resources              = [
+          [32m+[0m[0m {
+              [32m+[0m[0m autoscaling_groups              = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m name = "eks-bankapp-ng-d65bfb8fcfb9a5b33e8d998996-ced07c11-bcfd-7a0c-4ff5-f61c6ce0686b"
+                    },
+                ]
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m status                 = "CREATE_FAILED"
+        tags                   = {
+            "Environment" = "production"
+            "ManagedBy"   = "terraform"
+            "Name"        = "bankapp-ng"
+            "NodeGroup"   = "bankapp"
+            "Project"     = "AI-BankApp"
+        }
+        [90m# (11 unchanged attributes hidden)[0m[0m
+
+        [90m# (3 unchanged blocks hidden)[0m[0m
+    }
+
+
+Unless you have made equivalent changes to your configuration, or ignored the
+relevant attributes using ignore_changes, the following plan may include
+actions to undo or respond to these changes.
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+[32m+[0m/[31m-[0m create replacement and then destroy[0m
+
+Terraform will perform the following actions:
+
+[1m  # helm_release.argocd[0m will be created
+[0m  [32m+[0m[0m resource "helm_release" "argocd" {
+      [32m+[0m[0m atomic                     = false
+      [32m+[0m[0m chart                      = "argo-cd"
+      [32m+[0m[0m cleanup_on_fail            = false
+      [32m+[0m[0m create_namespace           = true
+      [32m+[0m[0m dependency_update          = false
+      [32m+[0m[0m disable_crd_hooks          = false
+      [32m+[0m[0m disable_openapi_validation = false
+      [32m+[0m[0m disable_webhooks           = false
+      [32m+[0m[0m force_update               = false
+      [32m+[0m[0m id                         = (known after apply)
+      [32m+[0m[0m lint                       = false
+      [32m+[0m[0m manifest                   = (known after apply)
+      [32m+[0m[0m max_history                = 0
+      [32m+[0m[0m metadata                   = (known after apply)
+      [32m+[0m[0m name                       = "argocd"
+      [32m+[0m[0m namespace                  = "argocd"
+      [32m+[0m[0m pass_credentials           = false
+      [32m+[0m[0m recreate_pods              = false
+      [32m+[0m[0m render_subchart_notes      = true
+      [32m+[0m[0m replace                    = false
+      [32m+[0m[0m repository                 = "https://argoproj.github.io/argo-helm"
+      [32m+[0m[0m reset_values               = false
+      [32m+[0m[0m reuse_values               = false
+      [32m+[0m[0m skip_crds                  = false
+      [32m+[0m[0m status                     = "deployed"
+      [32m+[0m[0m timeout                    = 300
+      [32m+[0m[0m values                     = [
+          [32m+[0m[0m <<-EOT
+                "configs":
+                  "params":
+                    "server.insecure": true
+                "server":
+                  "service":
+                    "type": "LoadBalancer"
+            EOT,
+        ]
+      [32m+[0m[0m verify                     = false
+      [32m+[0m[0m version                    = "10.9.6"
+      [32m+[0m[0m wait                       = true
+      [32m+[0m[0m wait_for_jobs              = false
+    }
+
+[1m  # module.eks.aws_eks_addon.this["aws-ebs-csi-driver"][0m will be created
+[0m  [32m+[0m[0m resource "aws_eks_addon" "this" {
+      [32m+[0m[0m addon_name                  = "aws-ebs-csi-driver"
+      [32m+[0m[0m addon_version               = "v1.66.0-eksbuild.1"
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m cluster_name                = "bankapp-eks"
+      [32m+[0m[0m configuration_values        = (known after apply)
+      [32m+[0m[0m created_at                  = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m modified_at                 = (known after apply)
+      [32m+[0m[0m preserve                    = true
+      [32m+[0m[0m region                      = "us-west-2"
+      [32m+[0m[0m resolve_conflicts_on_create = "NONE"
+      [32m+[0m[0m resolve_conflicts_on_update = "OVERWRITE"
+      [32m+[0m[0m service_account_role_arn    = "arn:aws:iam::874841217451:role/bankapp-eks-ebs-csi"
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+
+      [32m+[0m[0m namespace_config (known after apply)
+
+      [32m+[0m[0m timeouts {}
+    }
+
+[1m  # module.eks.aws_eks_addon.this["coredns"][0m will be created
+[0m  [32m+[0m[0m resource "aws_eks_addon" "this" {
+      [32m+[0m[0m addon_name                  = "coredns"
+      [32m+[0m[0m addon_version               = "v1.14.6-eksbuild.4"
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m cluster_name                = "bankapp-eks"
+      [32m+[0m[0m configuration_values        = (known after apply)
+      [32m+[0m[0m created_at                  = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m modified_at                 = (known after apply)
+      [32m+[0m[0m preserve                    = true
+      [32m+[0m[0m region                      = "us-west-2"
+      [32m+[0m[0m resolve_conflicts_on_create = "NONE"
+      [32m+[0m[0m resolve_conflicts_on_update = "OVERWRITE"
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+
+      [32m+[0m[0m namespace_config (known after apply)
+
+      [32m+[0m[0m timeouts {}
+    }
+
+[1m  # module.eks.aws_eks_addon.this["kube-proxy"][0m will be created
+[0m  [32m+[0m[0m resource "aws_eks_addon" "this" {
+      [32m+[0m[0m addon_name                  = "kube-proxy"
+      [32m+[0m[0m addon_version               = "v1.35.3-eksbuild.29"
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m cluster_name                = "bankapp-eks"
+      [32m+[0m[0m configuration_values        = (known after apply)
+      [32m+[0m[0m created_at                  = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m modified_at                 = (known after apply)
+      [32m+[0m[0m preserve                    = true
+      [32m+[0m[0m region                      = "us-west-2"
+      [32m+[0m[0m resolve_conflicts_on_create = "NONE"
+      [32m+[0m[0m resolve_conflicts_on_update = "OVERWRITE"
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+
+      [32m+[0m[0m namespace_config (known after apply)
+
+      [32m+[0m[0m timeouts {}
+    }
+
+[1m  # module.eks.aws_eks_addon.this["metrics-server"][0m will be created
+[0m  [32m+[0m[0m resource "aws_eks_addon" "this" {
+      [32m+[0m[0m addon_name                  = "metrics-server"
+      [32m+[0m[0m addon_version               = "v0.9.0-eksbuild.11"
+      [32m+[0m[0m arn                         = (known after apply)
+      [32m+[0m[0m cluster_name                = "bankapp-eks"
+      [32m+[0m[0m configuration_values        = (known after apply)
+      [32m+[0m[0m created_at                  = (known after apply)
+      [32m+[0m[0m id                          = (known after apply)
+      [32m+[0m[0m modified_at                 = (known after apply)
+      [32m+[0m[0m preserve                    = true
+      [32m+[0m[0m region                      = "us-west-2"
+      [32m+[0m[0m resolve_conflicts_on_create = "NONE"
+      [32m+[0m[0m resolve_conflicts_on_update = "OVERWRITE"
+      [32m+[0m[0m tags                        = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+      [32m+[0m[0m tags_all                    = {
+          [32m+[0m[0m "Environment" = "production"
+          [32m+[0m[0m "ManagedBy"   = "terraform"
+          [32m+[0m[0m "Project"     = "AI-BankApp"
+        }
+
+      [32m+[0m[0m namespace_config (known after apply)
+
+      [32m+[0m[0m timeouts {}
+    }
+
+[1m  # module.eks.module.eks_managed_node_group["bankapp-ng"].aws_eks_node_group.this[0][0m is tainted, so must be [1m[31mreplaced[0m
+[0m[32m+[0m/[31m-[0m[0m resource "aws_eks_node_group" "this" {
+      [33m~[0m[0m arn                    = "arn:aws:eks:us-west-2:874841217451:nodegroup/bankapp-eks/bankapp-ng-d65bfb8fcfb9a5b33e8d998996/ced07c11-bcfd-7a0c-4ff5-f61c6ce0686b" -> (known after apply)
+      [33m~[0m[0m disk_size              = 0 -> (known after apply)
+      [33m~[0m[0m id                     = "bankapp-eks:bankapp-ng-d65bfb8fcfb9a5b33e8d998996" -> (known after apply)
+      [33m~[0m[0m instance_types         = [
+          [33m~[0m[0m "t3.medium" [33m->[0m[0m "m7i-flex.large",
+        ]
+      [31m-[0m[0m labels                 = {} [90m-> null[0m[0m
+      [33m~[0m[0m node_group_name        = "bankapp-ng-d65bfb8fcfb9a5b33e8d998996" -> (known after apply)
+      [33m~[0m[0m resources              = [
+          [31m-[0m[0m {
+              [31m-[0m[0m autoscaling_groups              = [
+                  [31m-[0m[0m {
+                      [31m-[0m[0m name = "eks-bankapp-ng-d65bfb8fcfb9a5b33e8d998996-ced07c11-bcfd-7a0c-4ff5-f61c6ce0686b"
+                    },
+                ]
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ] -> (known after apply)
+      [33m~[0m[0m status                 = "CREATE_FAILED" -> (known after apply)
+        tags                   = {
+            "Environment" = "production"
+            "ManagedBy"   = "terraform"
+            "Name"        = "bankapp-ng"
+            "NodeGroup"   = "bankapp"
+            "Project"     = "AI-BankApp"
+        }
+        [90m# (10 unchanged attributes hidden)[0m[0m
+
+      [33m~[0m[0m launch_template {
+            id      = "lt-0f74bfab8598045b5"
+          [33m~[0m[0m name    = "bankapp-ng-bb945bd547ce320179b0d4d870" -> (known after apply)
+            [90m# (1 unchanged attribute hidden)[0m[0m
+        }
+
+      [33m~[0m[0m node_repair_config (known after apply)
+
+      [33m~[0m[0m update_config {
+          [31m-[0m[0m max_unavailable            = 0 [90m-> null[0m[0m
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+
+        [90m# (1 unchanged block hidden)[0m[0m
+    }
+
+[1mPlan:[0m [0m6 to add, 0 to change, 1 to destroy.
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mDeprecated value used[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on .terraform/modules/ebs_csi_irsa/modules/iam-role-for-service-accounts-eks/main.tf line 9, in locals:
+[33m│[0m [0m   9:   region              = [4mdata.aws_region.current.name[0m[0m
+[33m│[0m [0m
+[33m│[0m [0m  The deprecation originates from module.ebs_csi_irsa.data.aws_region.current.name
+[33m│[0m [0m
+[33m│[0m [0mname is deprecated. Use region instead.
+[33m│[0m [0m
+[33m│[0m [0m(and one more similar warning elsewhere)
+[33m╵[0m[0m
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
