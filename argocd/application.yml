@@ -1,3 +1,4 @@
+cat <<EOF | kubectl apply -f -
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -5,8 +6,15 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: bankapp
+      namespace: bankapp
+      jsonPointers:
+        - /spec/replicas
   source:
-    repoURL: https://github.com/TrainWithShubham/AI-BankApp-DevOps.git
+    repoURL: https://github.com/Mujakkir-Pathan/AI-BankApp-DevOps.git
     targetRevision: feat/gitops
     path: k8s
   destination:
@@ -19,3 +27,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+EOF
