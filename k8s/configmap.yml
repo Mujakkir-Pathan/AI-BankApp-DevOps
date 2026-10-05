@@ -9,3 +9,4 @@ data:
   MYSQL_DATABASE: bankappdb
   OLLAMA_URL: http://ollama-service:11434
   SERVER_FORWARD_HEADERS_STRATEGY: native
+  APP_NAME: AI-BankApp
