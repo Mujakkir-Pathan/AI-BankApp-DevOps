@@ -3,6 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
   namespace: bankapp
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   storageClassName: gp3
   accessModes:

@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: bankapp
   namespace: bankapp
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: 4
   selector:
