@@ -23,7 +23,7 @@ jobs:
       tag: ${{ steps.tag.outputs.sha_short }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Compute immutable image tag
         id: tag

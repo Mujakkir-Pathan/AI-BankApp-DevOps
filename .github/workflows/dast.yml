@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: OWASP ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.14.0
