@@ -51,3 +51,17 @@ output "argocd_initial_password" {
   description = "Command to get ArgoCD initial admin password"
   value       = "kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath='{.data.password}' | base64 -d"
 }
+
+# Secrets
+output "set_bankapp_secret" {
+  description = "Set the MySQL credential in Secrets Manager. Run this once after terraform apply; the ExternalSecret in k8s/external-secret.yml projects it into the bankapp namespace."
+
+  value = <<-EOT
+    DBPASS=$(openssl rand -hex 16)
+    aws secretsmanager put-secret-value \
+      --secret-id ${aws_secretsmanager_secret.bankapp.name} \
+      --region ${local.region} \
+      --secret-string "$(jq -nc --arg p "$DBPASS" \
+          '{MYSQL_ROOT_PASSWORD:$p, MYSQL_USER:"root", MYSQL_PASSWORD:$p}')"
+  EOT
+}

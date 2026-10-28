@@ -1,0 +1,27 @@
+# Grafana dashboards as ConfigMaps (the sidecar in grafana-values.yaml picks
+# up anything labelled grafana_dashboard: "1").
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-dashboards
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Mujakkir-Pathan/AI-BankApp-DevOps.git
+    targetRevision: main
+    path: gitops/observability/dashboards
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

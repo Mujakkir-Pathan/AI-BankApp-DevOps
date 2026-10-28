@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+  Project checkstyle gate. Scope: real defect classes only (broken contracts,
+  unreachable/suspicious code), not style pedantry — the goal is a gate that
+  stays green on correct code instead of one people learn to ignore.
+-->
+<module name="Checker">
+  <property name="severity" value="error"/>
+
+  <module name="BeforeExecutionExclusionFileFilter">
+    <property name="fileNamePattern" value="module-info\.java$"/>
+  </module>
+
+  <module name="TreeWalker">
+    <!-- Broken class contracts -->
+    <module name="EqualsHashCode"/>
+    <module name="FinalClass"/>
+    <module name="InterfaceIsType"/>
+    <module name="EqualsAvoidNull"/>
+
+    <!-- Suspicious / unreachable code -->
+    <module name="FallThrough"/>
+    <module name="MissingSwitchDefault"/>
+    <module name="UnnecessaryParentheses"/>
+    <module name="UnusedImports"/>
+    <module name="RedundantImport"/>
+    <module name="EmptyBlock">
+      <property name="option" value="TEXT"/>
+    </module>
+    <module name="NeedBraces"/>
+    <module name="OneStatementPerLine"/>
+    <module name="MultipleVariableDeclarations"/>
+    <module name="UpperEll"/>
+
+    <!-- Sensible Java naming -->
+    <module name="AbstractClassName"/>
+    <module name="TypeName"/>
+    <module name="MethodName"/>
+    <module name="ConstantName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName"/>
+    <module name="ParameterName"/>
+    <module name="StaticVariableName"/>
+
+  </module>
+</module>

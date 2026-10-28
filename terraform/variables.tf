@@ -33,3 +33,9 @@ variable "node_max_count" {
   type        = number
   default     = 5
 }
+
+variable "bankapp_secret_name" {
+  description = "Name of the AWS Secrets Manager secret holding BankApp MySQL credentials (consumed in-cluster by External Secrets Operator)."
+  type        = string
+  default     = "bankapp/mysql"
+}

@@ -1,0 +1,28 @@
+# ServiceMonitors, PodMonitor, PrometheusRule, EnvoyProxy telemetry.
+# Wave 4: the operator (wave 1) has to exist before these CRs can apply.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: observability-config
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Mujakkir-Pathan/AI-BankApp-DevOps.git
+    targetRevision: main
+    path: gitops/observability/manifests
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

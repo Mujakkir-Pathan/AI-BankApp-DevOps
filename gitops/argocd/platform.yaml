@@ -1,0 +1,27 @@
+# The app-of-apps root. Applying THIS file is the single entry point for the
+# GitOps platform layer (operators + observability).
+#
+#   kubectl apply -n argocd -f gitops/argocd/platform.yaml
+#
+# Each child lives in gitops/argocd/platform/ and carries its own sync wave.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Mujakkir-Pathan/AI-BankApp-DevOps.git
+    targetRevision: main
+    path: gitops/argocd/platform
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

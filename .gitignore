@@ -37,6 +37,34 @@ build/
 *.tfstate
 *.tfstate.backup
 *.tfplan
+terraform/backend.hcl
+backend.hcl
+terraform/plan.txt
+plan.txt
+
+### Local env (make setup) ###
+.env
+.env.*
+!.env.example
+docker-compose.override.yml
+
+### Key material — never commit ###
+*.pem
+*.key
+*.p12
+*.jks
+*.pfx
+kubeconfig
+kubeconfig.*
+
+### Misc junk ###
+*.log
+reports/
+.DS_Store
+Thumbs.db
+
+### Local env (make setup) ###
+.env
 
 ### Claude ###
 CLAUDE.md

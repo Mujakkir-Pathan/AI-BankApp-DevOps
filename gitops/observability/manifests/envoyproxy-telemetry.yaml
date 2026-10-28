@@ -1,0 +1,76 @@
+# Attaches to the GatewayClass bankapp already uses (envoy-gateway) — adds
+# 100% trace sampling + OTLP access logs to the OTel collector gateway.
+#
+# SSA note: k8s/gateway.yml also creates this GatewayClass (without
+# parametersRef). Both ArgoCD apps use ServerSideApply, which is field-level:
+# the bankapp app owns spec.controllerName, this manifest owns
+# spec.parametersRef, and neither sync removes the other's fields.
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: proxy-telemetry
+  namespace: envoy-gateway-system
+spec:
+  telemetry:
+    tracing:
+      samplingRate: 100
+      provider:
+        type: OpenTelemetry
+        backendRefs:
+          - name: otel-collector-gateway
+            namespace: observability
+            port: 4317
+      customTags:
+        k8s.cluster.name:
+          type: Literal
+          literal:
+            value: bankapp-eks
+        http.user_agent:
+          type: RequestHeader
+          requestHeader:
+            name: user-agent
+            defaultValue: unknown
+
+    accessLog:
+      settings:
+        - format:
+            type: Text
+            text: |
+              [%START_TIME%] "%REQ(:METHOD)% %REQ(X-ENVOY-ORIGINAL-PATH?:PATH)% %PROTOCOL%" %RESPONSE_CODE% %RESPONSE_FLAGS% %DURATION% "%UPSTREAM_HOST%" trace_id=%REQ(TRACEPARENT)%
+          sinks:
+            - type: OpenTelemetry
+              openTelemetry:
+                backendRefs:
+                  - name: otel-collector-gateway
+                    namespace: observability
+                    port: 4317
+                resources:
+                  k8s.cluster.name: bankapp-eks
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: envoy-gateway
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: proxy-telemetry
+    namespace: envoy-gateway-system
+---
+# Lets the EnvoyProxy (envoy-gateway-system) reference the collector Service
+# in observability. ReferenceGrants live in the TARGET namespace.
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-envoy-telemetry
+  namespace: observability
+spec:
+  from:
+    - group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      namespace: envoy-gateway-system
+  to:
+    - group: ""
+      kind: Service

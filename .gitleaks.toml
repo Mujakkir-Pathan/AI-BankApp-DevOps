@@ -1,0 +1,19 @@
+# Gitleaks config — scanned on every push (secret-scanning workflow, full history).
+#
+# [extend] keeps every default rule active; the allowlist below is surgical,
+# not a blanket exemption.
+
+title = "AI-BankApp-DevOps gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = """
+k8s/secrets.yml held the demo MySQL credential (Test@123) until it was
+replaced by k8s/external-secret.yml (AWS Secrets Manager + External Secrets
+Operator). The file only exists in git history now; rewriting published
+history to erase it would break every clone. Any NEW commit touching a
+plaintext Secret still fails the gate.
+"""
+paths = ['''^k8s/secrets\.yml$''']

@@ -1,0 +1,88 @@
+# No AWS creds on purpose: linting does not need state, and state holds cluster secrets.
+name: Terraform Checks
+
+on:
+  push:
+    branches: [main, feat/gitops]
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/terraform-ci.yml'
+  pull_request:
+    paths:
+      - 'terraform/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fmt-validate:
+    name: Format and validate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ['terraform', 'terraform/bootstrap']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.15.8
+
+      - name: terraform fmt
+        run: terraform fmt -check -recursive -diff
+        working-directory: ${{ matrix.dir }}
+
+      - name: terraform init
+        run: terraform init -backend=false -input=false
+        working-directory: ${{ matrix.dir }}
+
+      - name: terraform validate
+        run: terraform validate
+        working-directory: ${{ matrix.dir }}
+
+  tflint:
+    name: tflint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: latest
+
+      - run: tflint --init
+        working-directory: terraform
+
+      - run: tflint --recursive --format compact
+        working-directory: terraform
+
+  checkov:
+    name: Checkov
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: terraform
+          framework: terraform
+          soft_fail: true
+          output_format: cli
+          download_external_modules: false
+
+  trivy-config:
+    name: Trivy (IaC misconfiguration)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aquasecurity/trivy-action@v0.36.0
+        continue-on-error: true
+        with:
+          scan-type: config
+          scan-ref: terraform
+          format: table
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'

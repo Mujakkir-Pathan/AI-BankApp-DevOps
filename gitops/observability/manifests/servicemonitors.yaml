@@ -1,0 +1,55 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: bankapp
+  namespace: observability
+  labels:
+    app.kubernetes.io/part-of: bankapp
+spec:
+  namespaceSelector:
+    matchNames:
+      - bankapp
+  selector:
+    matchLabels:
+      app: bankapp
+  # endpoints[].port matches the Service's port NAME, not its number.
+  endpoints:
+    - port: http
+      path: /actuator/prometheus
+      interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: otel-collector-gateway
+  namespace: observability
+spec:
+  namespaceSelector:
+    matchNames:
+      - observability
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: opentelemetry-collector
+  endpoints:
+    - port: metrics
+      interval: 30s
+    - port: prometheus
+      interval: 30s
+---
+# Envoy Gateway dataplane metrics — the only view of request volume/latency
+# at the edge (per-gateway, before the app).
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: envoy-gateway-proxies
+  namespace: observability
+spec:
+  namespaceSelector:
+    matchNames:
+      - envoy-gateway-system
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: envoy
+  podMetricsEndpoints:
+    - port: metrics
+      interval: 30s

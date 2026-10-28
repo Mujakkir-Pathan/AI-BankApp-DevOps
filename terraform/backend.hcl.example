@@ -1,0 +1,13 @@
+# Generate: terraform -chdir=bootstrap output -raw backend_hcl > backend.hcl
+#
+# Copy this file to terraform/backend.hcl (gitignored, account-specific)
+# after creating the state bucket with ../bootstrap.
+
+bucket = "bankapp-tfstate-<your-account-id>-us-west-2"
+key    = "ai-bankapp/terraform.tfstate"
+region = "us-west-2"
+
+encrypt = true
+
+# S3-native state locking, GA since Terraform 1.11. Replaced the DynamoDB lock table.
+use_lockfile = true

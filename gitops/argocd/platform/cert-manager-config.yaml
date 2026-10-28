@@ -1,0 +1,31 @@
+# The staging ClusterIssuer, split from the operator because a ClusterIssuer
+# is a custom resource, so its CRD has to be registered first.
+#
+# Note: the PROD issuer (letsencrypt-prod) intentionally stays in
+# k8s/cert-manager.yml, owned by the `bankapp` Application — two different
+# resources, no overlap between the two apps.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager-config
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Mujakkir-Pathan/AI-BankApp-DevOps.git
+    targetRevision: main
+    path: gitops/cert-manager
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

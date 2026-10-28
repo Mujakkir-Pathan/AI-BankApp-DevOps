@@ -1,0 +1,73 @@
+name: DevSecOps
+
+on:
+  push:
+    branches: [main, feat/gitops]
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+      - 'Dockerfile'
+      - '.github/workflows/**'
+      - 'sonar-project.properties'
+  pull_request:
+    branches: [main, feat/gitops]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prep:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.sha_short }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compute immutable image tag
+        id: tag
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+  code-quality:
+    uses: ./.github/workflows/code-quality.yml
+
+  code-tests:
+    uses: ./.github/workflows/code-tests.yml
+
+  secret-scanning:
+    uses: ./.github/workflows/secret-scanning.yml
+
+  dependency-checks:
+    uses: ./.github/workflows/dependency-scan.yml
+
+  docker-checks:
+    uses: ./.github/workflows/docker-scans.yml
+
+  sonar-qube:
+    uses: ./.github/workflows/sonar-scan.yml
+    secrets: inherit
+
+  docker-push:
+    if: github.event_name != 'pull_request'
+    needs:
+      - prep
+      - code-quality
+      - code-tests
+      - secret-scanning
+      - dependency-checks
+      - docker-checks
+      - sonar-qube
+    uses: ./.github/workflows/docker-push.yml
+    with:
+      image_tag: ${{ needs.prep.outputs.tag }}
+    secrets: inherit
+
+  gitops-bump:
+    if: github.event_name != 'pull_request'
+    needs: [prep, docker-push]
+    permissions:
+      contents: write
+    uses: ./.github/workflows/gitops-bump.yml
+    with:
+      image_tag: ${{ needs.prep.outputs.tag }}

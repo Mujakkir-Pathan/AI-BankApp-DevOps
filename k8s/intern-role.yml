@@ -1,0 +1,15 @@
+# Read-mostly scope inside the bankapp namespace only. No secrets, no
+# configmap writes, no pod exec — Role (not ClusterRole), so it cannot reach
+# anything outside this namespace either.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: bankapp
+  name: bankapp-intern-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]

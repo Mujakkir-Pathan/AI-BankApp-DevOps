@@ -1,0 +1,72 @@
+name: GitOps Image Bump
+
+on:
+  workflow_call:
+    inputs:
+      image_tag:
+        required: true
+        type: string
+
+concurrency:
+  group: gitops-bump-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOCKERHUB_REPO: trainwithshubham/ai-bankapp-eks
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # `git pull --rebase` below needs real history
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq \
+            https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Write image refs into manifests
+        env:
+          TAG: ${{ inputs.image_tag }}
+        run: |
+          set -eu
+          # RAW manifests: surgical sed on the single "image:" line, keeping
+          # the file's formatting/comments untouched.
+          sed -i "s|image: ${DOCKERHUB_REPO}:.*|image: ${DOCKERHUB_REPO}:${TAG}|" k8s/bankapp-deployment.yml
+
+          # HELM values: structured repository/tag — repository written too,
+          # so it can't drift from what CI pushed.
+          v="helm-chart/bankapp/values.yaml"
+          if [ -f "$v" ]; then
+            yq -i ".bankapp.image.repository = \"${DOCKERHUB_REPO}\" | .bankapp.image.tag = \"${TAG}\"" "$v"
+          fi
+
+      - name: Commit and push
+        env:
+          TAG: ${{ inputs.image_tag }}
+        run: |
+          set -eu
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet; then
+            echo "Manifests already at ${TAG}; nothing to commit."
+            exit 0
+          fi
+          git add k8s/bankapp-deployment.yml helm-chart/bankapp/values.yaml
+          git commit -m "ci: deploy ${TAG} [skip ci]"
+
+          # Push to whatever branch triggered us, so this keeps working on
+          # main, on feat/gitops, or on a fork's branch.
+          BRANCH="${{ github.ref_name }}"
+          for i in 1 2 3; do
+            git pull --rebase origin "$BRANCH" && git push origin "HEAD:$BRANCH" && exit 0
+            echo "Push rejected (attempt ${i}); retrying..."
+            sleep $((i * 5))
+          done
+          exit 1

@@ -292,7 +292,7 @@ cd terraform
 terraform destroy
 ```
 
-See [`DEPLOYMENT.md`](../DEPLOYMENT.md#cleanup) for detailed cleanup steps and troubleshooting if VPC deletion gets stuck.
+See [`Deploy.md`](../Deploy.md#cleanup--order-matters) for detailed cleanup steps and troubleshooting if VPC deletion gets stuck.
 
 ## Project Structure
 

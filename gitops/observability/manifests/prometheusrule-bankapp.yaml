@@ -1,0 +1,92 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: bankapp
+  namespace: observability
+  labels:
+    app.kubernetes.io/part-of: bankapp
+spec:
+  groups:
+    - name: ollama
+      rules:
+        - alert: AIModelStorageUnbound
+          expr: kube_persistentvolumeclaim_status_phase{namespace="bankapp",persistentvolumeclaim="ollama-pvc",phase="Pending"} == 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "ollama-pvc is Pending — the model server cannot start"
+            description: >-
+              A PersistentVolumeClaim stuck Pending almost always means no
+              StorageClass. EKS does not mark gp2 default, so a PVC that names
+              no class waits forever.
+            runbook: "kubectl -n bankapp describe pvc ollama-pvc — then check storageClassName in k8s/pv.yml"
+
+        - alert: AIModelServerDown
+          expr: kube_deployment_status_replicas_available{namespace="bankapp",deployment="ollama"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Ollama has no available replicas — every AI chat call will fail"
+            runbook: "kubectl -n bankapp get pvc,pod && kubectl -n bankapp logs deploy/ollama"
+
+        - alert: AIModelServerThrottled
+          expr: |
+            rate(container_cpu_cfs_throttled_seconds_total{namespace="bankapp",container="ollama"}[5m]) > 0.5
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Ollama is CPU-throttled — generation will be very slow"
+            description: >-
+              Either the container's CPU limit is too low, or the node has
+              exhausted its burst credits. The fix for sustained load is a
+              non-burstable instance family (c5/c6i), not a bigger limit.
+
+    - name: bankapp-app
+      rules:
+        - alert: BankAppDown
+          expr: kube_deployment_status_replicas_available{namespace="bankapp",deployment="bankapp"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "bankapp has no available replicas — the site is down"
+            runbook: "kubectl -n bankapp get pods -o wide && kubectl -n bankapp describe deploy bankapp"
+
+        - alert: BankAppHighErrorRate
+          expr: |
+            sum(rate(http_server_requests_seconds_count{namespace="bankapp",status=~"5.."}[5m]))
+              /
+            sum(rate(http_server_requests_seconds_count{namespace="bankapp"}[5m]))
+              > 0.1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "More than 10% of BankApp HTTP requests are 5xx"
+            runbook: "kubectl -n bankapp logs deploy/bankapp --since=10m | grep -i error — then Grafana > BankApp RED"
+
+        - alert: BankAppSecretMissing
+          expr: |
+            kube_pod_container_status_waiting_reason{namespace="bankapp",reason="CreateContainerConfigError"} == 1
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pods cannot start — bankapp-secret is probably not being synced"
+            description: >-
+              The Secret now comes from AWS Secrets Manager via the External
+              Secrets Operator. CreateContainerConfigError usually means the
+              ExternalSecret has no value to project yet.
+            runbook: "kubectl -n bankapp describe externalsecret bankapp-secret && terraform output -raw set_bankapp_secret"
+
+        - alert: MySQLDown
+          expr: kube_deployment_status_replicas_available{namespace="bankapp",deployment="mysql"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "MySQL has no available replicas — every transaction fails"
+            runbook: "kubectl -n bankapp describe deploy mysql && kubectl -n bankapp logs deploy/mysql --tail=50"

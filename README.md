@@ -70,23 +70,27 @@ A modern banking application with an integrated AI chatbot, deployed on AWS EKS 
 
 ## Quick Start
 
-> Full step-by-step commands with troubleshooting: [`DEPLOYMENT.md`](DEPLOYMENT.md)
+> **Local Kubernetes + GitOps (no AWS):** [`deploy-local.md`](deploy-local.md) — kind + ArgoCD + observability
+> **Full EKS deployment:** [`Deploy.md`](Deploy.md) — step-by-step + gotchas
+> **Just the app on your machine (no Kubernetes):** `make setup && make up`
 
 ```bash
-# 1. Provision infrastructure (~15 min)
-cd terraform && terraform init && terraform apply
+# 0. remote state bucket (one-time)
+cd terraform/bootstrap && terraform init && terraform apply \
+  && terraform output -raw backend_hcl > ../backend.hcl && cd ../..
 
-# 2. Configure kubectl
-aws eks update-kubeconfig --name bankapp-eks --region us-west-2
+# 1. provision infrastructure (~15 min)
+cd terraform && terraform init && terraform apply && cd ..
 
-# 3. Install Envoy Gateway + cert-manager + Prometheus
-#    (see DEPLOYMENT.md Steps 4-6)
+# 2. configure kubectl + set the DB secret
+terraform output -raw configure_kubectl | bash
+terraform output -raw set_bankapp_secret | bash
 
-# 4. Deploy via ArgoCD
-kubectl apply -f argocd/application.yml
+# 3. Gateway API + Envoy + platform (ESO, cert-manager, observability) + app
+./scripts/deploy.sh
 
-# 5. Pull AI model
-kubectl exec -n bankapp deploy/ollama -- ollama pull tinyllama
+# 4. pull the AI model
+kubectl -n bankapp exec deploy/ollama -- ollama pull tinyllama
 ```
 
 ---
@@ -123,9 +127,12 @@ Code Push → GitHub Actions → Build & Push to DockerHub → Update k8s manife
 │   └── ...                 # namespace, configmap, secrets, pv, pvc
 ├── argocd/
 │   └── application.yml     # ArgoCD Application
-├── .github/workflows/
-│   └── gitops-ci.yml       # CI → DockerHub → manifest update
-└── DEPLOYMENT.md           # Step-by-step deployment playbook
+├── .github/workflows/       # devsecops gates, docker-push, gitops-bump
+├── gitops/                  # ArgoCD app-of-apps (platform: ESO, cert-manager, observability)
+├── ansible/                 # optional: bootstrap a deployment machine (EC2)
+├── Makefile                 # local dev: make setup/up/down/smoke/test
+├── Deploy.md                # end-to-end EKS deployment playbook
+└── deploy-local.md          # local kind cluster + GitOps, no AWS
 ```
 
 ---
@@ -134,8 +141,11 @@ Code Push → GitHub Actions → Build & Push to DockerHub → Update k8s manife
 
 | Document | Purpose |
 |----------|---------|
-| [`DEPLOYMENT.md`](DEPLOYMENT.md) | Step-by-step deployment commands + gotchas |
+| [`Deploy.md`](Deploy.md) | End-to-end EKS deployment + cleanup + gotchas |
+| [`deploy-local.md`](deploy-local.md) | Local kind cluster + ArgoCD + observability, zero AWS |
+| [`gitops/README.md`](gitops/README.md) | GitOps platform layer (app-of-apps, telemetry) |
 | [`terraform/README.md`](terraform/README.md) | Detailed infrastructure setup + troubleshooting |
+| [`ansible/README.md`](ansible/README.md) | Bootstrap an Ubuntu deployment machine |
 
 ---
 

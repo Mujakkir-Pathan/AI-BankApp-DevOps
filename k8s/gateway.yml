@@ -53,10 +53,10 @@ spec:
       kind: Gateway
       name: bankapp-gateway
       sectionName: https
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: bankapp-gateway
-      sectionName: http
+    # The :80 listener is intentionally NOT attached here — it serves the
+    # ACME challenge plus k8s/httproute-redirect.yml (PathPrefix / → 301
+    # https). Attaching this route there too would make two PathPrefix / rules
+    # on the same listener, and Gateway API leaves that tie undefined.
   rules:
     - matches:
         - path:
