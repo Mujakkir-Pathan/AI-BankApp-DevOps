@@ -152,7 +152,7 @@ kubectl -n observability port-forward svc/observability-grafana 3000:80
 # dashboards: "BankApp" folder (RED) + Ollama health — arrive via
 # the observability-dashboards app as ConfigMaps
 # alerts: gitops/observability/manifests/prometheusrule-bankapp.yaml
-# (6 rules; Alertmanager routing is off by default — enable it in
+# (7 rules; Alertmanager routing is off by default — enable it in
 # gitops/observability/prometheus-values.yaml)
 ```
 
@@ -208,8 +208,8 @@ helm uninstall eg -n envoy-gateway-system
 
 # 4. wait for LBs to terminate
 sleep 60
-aws elb describe-load-balancers --region us-west-2 \
-  --query 'LoadBalancerDescriptions[*].LoadBalancerName' --output text   # should be empty
+aws elbv2 describe-load-balancers --region us-west-2 \
+  --query 'LoadBalancers[*].LoadBalancerName' --output text   # should be empty
 
 # 5. now the cluster can go
 cd terraform && terraform destroy
