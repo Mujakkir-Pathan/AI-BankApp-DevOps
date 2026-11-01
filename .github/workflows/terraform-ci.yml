@@ -24,7 +24,7 @@ jobs:
       matrix:
         dir: ['terraform', 'terraform/bootstrap']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: hashicorp/setup-terraform@v3
         with:
@@ -46,7 +46,7 @@ jobs:
     name: tflint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: terraform-linters/setup-tflint@v4
         with:
@@ -62,7 +62,7 @@ jobs:
     name: Checkov
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: bridgecrewio/checkov-action@v12
         with:
@@ -76,7 +76,7 @@ jobs:
     name: Trivy (IaC misconfiguration)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: aquasecurity/trivy-action@v0.36.0
         continue-on-error: true
