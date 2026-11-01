@@ -184,11 +184,10 @@ push → devsecops.yml (gates) → docker-push.yml (image @ commit SHA)
 - **Manual:** `dast.yml` (ZAP baseline) via workflow_dispatch.
 - `terraform-ci.yml` runs on every `terraform/` change.
 
-> **Fork/branch note:** `argocd/application.yml` still points at the upstream
-> repo (`TrainWithShubham/...` @ `feat/gitops`). Everything under `gitops/`
-> points at `Mujakkir-Pathan/...` @ `main`. If you deploy from your own fork
-> or branch, edit `repoURL`/`targetRevision` in both places — ArgoCD can only
-> sync what it can fetch (the `deploy.sh` preflight checks this).
+> **Fork/branch note:** Everything — `argocd/application.yml` and all of
+> `gitops/` — points at `Mujakkir-Pathan/...` @ `main`. If you deploy from
+> another fork or branch, edit `repoURL`/`targetRevision` accordingly —
+> ArgoCD can only sync what it can fetch (the `deploy.sh` preflight checks this).
 
 ---
 

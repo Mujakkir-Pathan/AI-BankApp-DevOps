@@ -67,11 +67,10 @@ kubectl apply -f argocd/application.yml                  # the app (k8s/)
    `observability-prometheus` in `observability`. Running both = two
    Prometheus operators fighting over CRDs:
    `helm uninstall kube-prometheus -n monitoring` first.
-4. **repoURL / targetRevision.** Everything under `gitops/` points at
+4. **repoURL / targetRevision.** Everything under `gitops/` and
+   `argocd/application.yml` points at
    `https://github.com/Mujakkir-Pathan/AI-BankApp-DevOps.git` @ `main`.
-   If you push to a different fork or branch, edit those fields (including
-   `argocd/application.yml`, which still points at the upstream
-   `feat/gitops` branch).
+   If you push to a different fork or branch, edit those fields.
 
 ## Telemetry path
 

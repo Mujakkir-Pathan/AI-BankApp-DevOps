@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/TrainWithShubham/AI-BankApp-DevOps.git
-    targetRevision: feat/gitops
+    repoURL: https://github.com/Mujakkir-Pathan/AI-BankApp-DevOps.git
+    targetRevision: main
     path: k8s
   destination:
     server: https://kubernetes.default.svc

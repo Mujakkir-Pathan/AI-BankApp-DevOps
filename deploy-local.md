@@ -220,9 +220,8 @@ echo "<GATEWAY_IP> 52.43.97.152.nip.io" | sudo tee -a /etc/hosts
 
 ## Step 6 — the application (GitOps)
 
-`argocd/application.yml` points at the **upstream** repo
-(`TrainWithShubham/... @ feat/gitops`). Locally, sync *your* fork's `k8s/`
-instead — same project, same sync policy:
+`argocd/application.yml` points at **your fork**
+(`Mujakkir-Pathan/... @ main`) — apply it as-is:
 
 ```bash
 kubectl apply -f - <<EOF
