@@ -3,7 +3,7 @@ bankapp:
   replicaCount: 4
   image:
     repository: mujakkirpathan/ai-bankapp-eks
-    tag: "latest"
+    tag: "97db0a0"
     pullPolicy: Always
   resources:
     requests:
@@ -20,7 +20,6 @@ bankapp:
     minReplicas: 2
     maxReplicas: 4
     targetCPUUtilization: 70
-
 # MySQL configuration
 mysql:
   enabled: true
@@ -37,7 +36,6 @@ mysql:
   persistence:
     size: 5Gi
     storageClass: gp3
-
 # Ollama AI configuration
 ollama:
   enabled: true
@@ -55,24 +53,20 @@ ollama:
   persistence:
     size: 10Gi
     storageClass: gp3
-
 # Shared configuration
 config:
   mysqlDatabase: bankappdb
-  ollamaUrl: ""  # Auto-generated from service name if empty
-
+  ollamaUrl: "" # Auto-generated from service name if empty
 # Secrets
 secrets:
   mysqlRootPassword: Test@123
   mysqlUser: root
   mysqlPassword: Test@123
-
 # Storage
 storageClass:
   create: true
   name: gp3
   provisioner: ebs.csi.aws.com
-
 # Gateway (optional -- for EKS with Envoy Gateway)
 gateway:
   enabled: false
