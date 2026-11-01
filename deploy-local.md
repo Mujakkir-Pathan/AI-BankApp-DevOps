@@ -316,7 +316,7 @@ with no git counterpart.
 Trying your own code: build and push an image (DockerHub), then bump the tag
 in `k8s/bankapp-deployment.yml` and push — CI (`docker-push` +
 `gitops-bump`) does this automatically on GitHub. The manifest currently
-references the public `trainwithshubham/ai-bankapp-eks:1c7cb0e`. For a quick
+references the public `mujakkirpathan/ai-bankapp-eks:1c7cb0e`. For a quick
 no-CI experiment you can `docker build -t <tag> . && kind load docker-image
 <tag>` instead of pushing — but the manifest says `imagePullPolicy: Always`,
 so the tag has to exist in a registry unless you also switch that policy.

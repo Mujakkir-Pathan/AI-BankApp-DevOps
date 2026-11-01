@@ -246,7 +246,7 @@ Code Push → GitHub Actions → Build & Push to DockerHub → Update k8s manife
 2. **GitHub Actions** (`.github/workflows/gitops-ci.yml`):
    - Builds the Spring Boot app with Maven
    - Builds Docker image
-   - Pushes `trainwithshubham/ai-bankapp-eks:<sha>` to DockerHub
+   - Pushes `mujakkirpathan/ai-bankapp-eks:<sha>` to DockerHub
    - Updates `k8s/bankapp-deployment.yml` with new image tag
    - Commits with `[skip ci]`
 3. **ArgoCD** detects the manifest change → auto-syncs to EKS

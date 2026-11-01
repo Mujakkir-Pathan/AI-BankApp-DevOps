@@ -1,7 +1,7 @@
 bankapp:
   replicaCount: 4
   image:
-    repository: trainwithshubham/ai-bankapp-eks
+    repository: mujakkirpathan/ai-bankapp-eks
     tag: "v1.2.0"
     pullPolicy: IfNotPresent
   resources:

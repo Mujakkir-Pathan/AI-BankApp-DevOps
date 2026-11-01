@@ -9,7 +9,7 @@ on:
         type: string
 
 env:
-  DOCKERHUB_REPO: trainwithshubham/ai-bankapp-eks
+  DOCKERHUB_REPO: mujakkirpathan/ai-bankapp-eks
 
 jobs:
   build-push:
