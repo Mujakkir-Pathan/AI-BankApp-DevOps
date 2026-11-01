@@ -3,7 +3,7 @@ bankapp:
   replicaCount: 4
   image:
     repository: mujakkirpathan/ai-bankapp-eks
-    tag: "97db0a0"
+    tag: "317ca85"
     pullPolicy: Always
   resources:
     requests:
