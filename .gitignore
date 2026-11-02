@@ -71,3 +71,7 @@ CLAUDE.md
 
 ### Speaker Notes (personal, not for repo) ###
 SPEAKER_NOTES.md
+
+### Helm packaging artifacts (build output, not source) ###
+helm-chart/*.tgz
+helm-chart/chart-repo/

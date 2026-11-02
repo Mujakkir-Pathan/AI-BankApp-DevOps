@@ -7,7 +7,7 @@
 A modern banking application with an integrated AI chatbot, deployed on AWS EKS using Terraform, ArgoCD, Gateway API, and Prometheus monitoring.
 
 [![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.13-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![Kubernetes](https://img.shields.io/badge/EKS-1.35-326CE5?logo=kubernetes&logoColor=white)](https://aws.amazon.com/eks/)
 [![ArgoCD](https://img.shields.io/badge/ArgoCD-GitOps-EF7B4D?logo=argo&logoColor=white)](https://argo-cd.readthedocs.io/)
 [![Terraform](https://img.shields.io/badge/Terraform-IaC-844FBA?logo=terraform&logoColor=white)](https://www.terraform.io/)
@@ -52,13 +52,32 @@ A modern banking application with an integrated AI chatbot, deployed on AWS EKS 
 | **AI Chatbot** | Ollama (TinyLlama) on EKS |
 | **Storage** | EBS CSI Driver (gp3 dynamic provisioning) |
 
+How a request flows at runtime on EKS:
+
+```mermaid
+flowchart LR
+    U["Browser (HTTPS)"] --> GW["Envoy Gateway<br/>AWS NLB"]
+    subgraph eks["EKS cluster"]
+        GW -->|"/"| APP["BankApp<br/>Spring Boot, 2 replicas"]
+        APP -->|JDBC| MY[("MySQL 8.0<br/>EBS gp3 volume")]
+        APP -->|"chat requests"| OLL["Ollama<br/>TinyLlama"]
+        APP -.->|"/actuator/prometheus"| PROM["Prometheus"]
+        OLL -.-> PROM
+        PROM --> GRAF["Grafana"]
+    end
+```
+
+TLS certificates are issued by cert-manager (Let's Encrypt). ArgoCD, External
+Secrets Operator and the rest of the platform layer run in the same cluster;
+see [`gitops/README.md`](gitops/README.md).
+
 ---
 
 ## What Gets Deployed
 
 | Resource | Details |
 |----------|---------|
-| **EKS Cluster** | Kubernetes 1.35, 3x `t3.medium` across 3 AZs |
+| **EKS Cluster** | Kubernetes 1.35, 3x `m7i-flex.large` across 3 AZs |
 | **BankApp** | 2 replicas with HPA (scales to 4), rolling updates |
 | **MySQL 8.0** | Persistent EBS volume (gp3) |
 | **Ollama AI** | TinyLlama model with persistent storage |
@@ -97,11 +116,16 @@ kubectl -n bankapp exec deploy/ollama -- ollama pull tinyllama
 
 ## CI/CD — GitOps Flow
 
-```
-Code Push → GitHub Actions → Build & Push to DockerHub → Update k8s manifest → ArgoCD auto-sync → EKS
+```mermaid
+flowchart LR
+    P["git push to main"] --> J["GitHub Actions<br/>tests, lint, security gates"]
+    J --> B["Build and push image<br/>DockerHub, tagged with commit SHA"]
+    B --> U["Update image tag in<br/>k8s/ + helm values<br/>commit back to main"]
+    U --> A["ArgoCD detects the<br/>manifest change"]
+    A --> R["EKS rolling update<br/>zero downtime"]
 ```
 
-1. Push code changes to `feat/gitops`
+1. Push code changes to `main`
 2. **GitHub Actions** builds the app, pushes Docker image to DockerHub with commit SHA tag
 3. Workflow updates `k8s/bankapp-deployment.yml` with new image tag and commits back
 4. **ArgoCD** detects the manifest change and auto-syncs to EKS
@@ -115,21 +139,29 @@ Code Push → GitHub Actions → Build & Push to DockerHub → Update k8s manife
 
 ```
 .
-├── terraform/              # Infrastructure as Code (VPC + EKS + ArgoCD)
-├── k8s/                    # Kubernetes manifests (ArgoCD watches this)
+├── src/                     # Spring Boot application (Java 21)
+├── config/checkstyle/       # Checkstyle rules used by the CI quality gate
+├── terraform/               # Infrastructure as Code (VPC + EKS + ArgoCD)
+│   └── bootstrap/           # remote state bucket, run once
+├── k8s/                     # Kubernetes manifests (ArgoCD watches this)
 │   ├── bankapp-deployment.yml
 │   ├── mysql-deployment.yml
 │   ├── ollama-deployment.yml
 │   ├── service.yml
-│   ├── gateway.yml         # Gateway API + HTTPS + session persistence
-│   ├── cert-manager.yml    # Let's Encrypt ClusterIssuer
-│   ├── hpa.yml             # Horizontal Pod Autoscaler
-│   └── ...                 # namespace, configmap, secrets, pv, pvc
+│   ├── gateway.yml          # Gateway API + HTTPS + session persistence
+│   ├── cert-manager.yml     # Let's Encrypt ClusterIssuer
+│   ├── hpa.yml              # Horizontal Pod Autoscaler
+│   └── ...                  # namespace, configmap, secrets, pv, pvc
 ├── argocd/
-│   └── application.yml     # ArgoCD Application
-├── .github/workflows/       # devsecops gates, docker-push, gitops-bump
+│   └── application.yml      # ArgoCD Application
 ├── gitops/                  # ArgoCD app-of-apps (platform: ESO, cert-manager, observability)
+├── helm-chart/bankapp/      # Helm chart for the same app (alternative delivery)
+├── scripts/deploy.sh        # one-shot deploy: gateway + platform + app
+├── .github/workflows/       # devsecops gates, docker-push, gitops-bump
+├── docker-compose.yml       # local run: app + MySQL + Ollama, no Kubernetes
+├── .env.example             # local settings template (make setup)
 ├── ansible/                 # optional: bootstrap a deployment machine (EC2)
+├── setup-k8s/               # kind cluster config for local Kubernetes
 ├── Makefile                 # local dev: make setup/up/down/smoke/test
 ├── Deploy.md                # end-to-end EKS deployment playbook
 └── deploy-local.md          # local kind cluster + GitOps, no AWS
