@@ -58,7 +58,7 @@ cd ..
 
 ```bash
 cd terraform
-terraform init          # picks up backend.hcl; offers to migrate local state
+terraform init -backend-config=backend.hcl   # loads backend.hcl; offers to migrate local state
 terraform plan
 terraform apply
 ```
